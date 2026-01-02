@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+
 export default function Digest() {
   const [articles, setArticles] = useState([]);
   const interest = localStorage.getItem("interest") || "technology";
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/digest/generate?interest=${interest}`)
+      .get(`${BACKEND_URL}/api/digest/generate?interest=${interest}`)
       .then((res) => setArticles(res.data))
       .catch(() => alert("Failed to load digest"));
   }, [interest]);
@@ -33,3 +35,4 @@ export default function Digest() {
     </div>
   );
 }
+
